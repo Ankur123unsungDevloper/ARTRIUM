@@ -29,15 +29,15 @@ router.post('/', async (req, res) => {
     });
 
     // Check if response is correct
-    if (aiResponse.data && aiResponse.data.length > 0) {
-      const image = aiResponse.data[0].b64_json;
+    if (aiResponse && aiResponse.data && aiResponse.data.length > 0) {
+      const image = aiResponse.data[0].b64_json; // Adjust this based on actual response structure
       console.log('Generated image base64:', image);  // Log the generated base64 string
       res.status(200).json({ photo: image });
     } else {
       res.status(500).json({ message: 'No image generated' });
     }
   } catch (error) {
-    console.error('Error generating image:', error.message);
+    console.error('Error generating image:', error); // Log the entire error object
     res.status(500).json({
       message: error?.message || 'Something went wrong with image generation',
     });
